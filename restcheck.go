@@ -26,6 +26,7 @@ func main() {
 
 	if *version {
 		fmt.Println(versionMsg)
+		return
 	} else if *initFlag != "null" {
 		commend.InitProject(*initFlag)
 		return
@@ -33,7 +34,7 @@ func main() {
 		commend.ShowProjectMsg()
 		return
 	} else if *initApiFlag != "" {
-
+		commend.InitApi(*initApiFlag)
 		return
 	} else {
 		if *checkAll {

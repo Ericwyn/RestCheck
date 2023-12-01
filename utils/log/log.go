@@ -8,7 +8,7 @@ import (
 
 type logTag string
 
-var timeFormat = "[MMdd-HHmmss]"
+var timeFormat = "[MMdd-HH:mm:ss]"
 
 var info logTag = "INFO"
 var debug logTag = "DBUG"
@@ -27,5 +27,5 @@ func E(msg ...interface{}) {
 }
 
 func printLog(tag logTag, msg ...interface{}) {
-	fmt.Println("[EZECOPY-"+tag+"]", date.Format(time.Now(), timeFormat), fmt.Sprint(msg...))
+	fmt.Println(date.Format(time.Now(), timeFormat), "[RCHECK-"+tag+"]", fmt.Sprint(msg...))
 }

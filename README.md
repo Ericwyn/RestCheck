@@ -71,7 +71,7 @@ restcheck -checkall
 ```shell
 └── restcheck.conf     ---> 项目配置, env / 域名 / 通用 header 之类的
 │
-├── listNote                                  ---> 一个 API 目录, api 名称: listTracking
+├── listNote                                  ---> 一个 API 目录, api 名称: logisticsLog
 │  ├── request.http                           ---> API 的配置
 │  │
 │  ├── prd                                    ---> prd 环境的测试情况
