@@ -18,7 +18,50 @@ import (
 
 // InitApi 初始化 API 配置
 func InitApi(apiName string) {
+	log.D("初始化 API 配置, apiName: ", apiName)
+	config := conf.LoadProjectConfig()
+	if config == nil {
+		log.E("无法载入项目配置")
+		return
+	}
 
+	apiDirPath := path.Join(conf.GetBasePath(), "/", apiName)
+
+	// 判断 apiDir 是否存在
+	if pathExists(apiDirPath) {
+		log.E("API 目录已经存在, 无法初始化")
+		return
+	}
+
+	os.MkdirAll(apiDirPath, 0755)
+
+	// 写入示例文件
+	requestFileDemo := getRequestDemoFile(apiName)
+	requestFilePath := path.Join(apiDirPath, "request.http")
+	os.WriteFile(requestFilePath, []byte(requestFileDemo), 0755)
+
+	log.I("初始化 api 配置: ", requestFilePath)
+}
+
+func pathExists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+	if os.IsNotExist(err) {
+		return false
+	}
+	return false
+}
+
+func getRequestDemoFile(apiName string) string {
+	return `POST /` + apiName + `
+Content-Type: application/json
+
+{
+  "param1": "value1",
+  "param2": "param2"
+}`
 }
 
 func CheckAllApi(env string, saveResult bool) {
